@@ -2,8 +2,15 @@ package com.learningjspring.course.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_user") //renomeando a tabela pois User é uma palavra reservada
 public class User implements Serializable {
     public static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincremento
     private Long id;
     private String name;
     private String email;
