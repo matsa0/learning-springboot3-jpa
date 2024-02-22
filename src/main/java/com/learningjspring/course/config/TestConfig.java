@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Profile;
 @Profile("test") //só vai rodar quando tiver no perfil de test(definido no application-test.properties)
 public class TestConfig implements CommandLineRunner{
 
+    //Injeção de dependência
     @Autowired
     private UserRepository userRepository;
 
