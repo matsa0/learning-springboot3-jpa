@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,8 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+
+    @JsonIgnore //ignorar a serialização de um campo específico em um objeto Java para JSON(dando conflito com o relacionamento ManyToOne)
     //Para fazer a annotation de relacionamento, você olha o lado da classe que você está
     //One User for Many Orders
     @OneToMany(mappedBy = "client") //mappedBy mostra que Order é a "dona" do relacionamento, e o mapeamento do relacionamento é especificado pelo campo client na classe Order.

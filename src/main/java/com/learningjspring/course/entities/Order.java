@@ -18,7 +18,7 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private Instant moment;
 
     //Para fazer a annotation de relacionamento, você olha o lado da classe que você está
@@ -29,7 +29,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, User client) {
         this.id = id;
         this.moment = moment;
         this.client = client;
@@ -38,7 +38,7 @@ public class Order implements Serializable {
     public long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public Instant getMoment() {
