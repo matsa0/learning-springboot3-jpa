@@ -1,8 +1,15 @@
 package com.learningjspring.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_user") //renomeando a tabela pois User é uma palavra reservada
@@ -16,6 +23,11 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
+
+    //Para fazer a annotation de relacionamento, você olha o lado da classe que você está
+    //One User for Many Orders
+    @OneToMany(mappedBy = "client") //mappedBy mostra que Order é a "dona" do relacionamento, e o mapeamento do relacionamento é especificado pelo campo client na classe Order.
+    private List<Order> orders = new ArrayList<>(); //associação com usuário, um usuário pode ter muitos pedidos
 
     public User() {
     }
@@ -57,6 +69,10 @@ public class User implements Serializable {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    //Collections é somente o get
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
