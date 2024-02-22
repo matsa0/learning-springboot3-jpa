@@ -3,6 +3,8 @@ package com.learningjspring.course.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.learningjspring.course.entities.enums.OrderStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,12 +28,15 @@ public class Order implements Serializable {
     @JoinColumn(name = "id_client") //especifica a coluna na tabela tb_order que mantém a chave estrangeira para a tabela User.
     private User client;
 
+    private Integer orderStatus;
+
     public Order() {
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
+        setOrderStatus(orderStatus);
         this.client = client;
     }
     
@@ -46,6 +51,14 @@ public class Order implements Serializable {
     }
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valeuOf(orderStatus); //usa a função para pegar o order status
+    }
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if(orderStatus != null) {
+            this.orderStatus = orderStatus.getCode(); //pega o código inteiro
+        }
     }
     public User getClient() {
         return client;
