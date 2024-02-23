@@ -7,9 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.learningjspring.course.entities.Category;
 import com.learningjspring.course.entities.Order;
 import com.learningjspring.course.entities.User;
 import com.learningjspring.course.entities.enums.OrderStatus;
+import com.learningjspring.course.repositories.CategoryRepository;
 import com.learningjspring.course.repositories.OrderRepository;
 import com.learningjspring.course.repositories.UserRepository;
 
@@ -25,6 +27,9 @@ public class TestConfig implements CommandLineRunner{
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     //instancia o banco de dados no início da aplicação
     @SuppressWarnings("null")
     @Override
@@ -36,9 +41,13 @@ public class TestConfig implements CommandLineRunner{
         Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.SHIPPED, u2); 
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
 
+        Category c1 = new Category(null, "Lunch");
+        Category c2 = new Category(null, "Pizza");
+
         /*salva no banco de dados usando o UserRepository. Essa parte do código é destinada a inicializar dados de teste no banco de dados.*/
         userRepository.saveAll(Arrays.asList(u1, u2)); //userRepository herda de JpaRepository e tem todos os métodos CRUD
         orderRepository.saveAll(Arrays.asList(o1, o2, o3)); 
+        categoryRepository.saveAll(Arrays.asList(c1, c2));
     }
 
 }
