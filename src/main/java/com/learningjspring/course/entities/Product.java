@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -26,8 +27,32 @@ public class Product implements Serializable {
     private String imgUrl;
 
 
+    /* 
+    Equivalente ao conceito de mapeamento relacional da disciplina de BD1
+
+    A anotação @JoinTable é utilizada para especificar a tabela de junção que será criada para representar a relação 
+    muitos-para-muitos entre duas entidades. 
+    
+    A tabela de junção é necessária quando você tem uma associação muitos-para-muitos entre duas entidades. Ela armazena os relacionamentos 
+    entre as entidades, que não podem ser diretamente representados em uma estrutura de banco de dados relacional.
+    */
+
+    /* 
+    ***name (obrigatório)***
+    Especifica o nome da tabela de junção que será criada no banco de dados. 
+
+    ***joinColumns (obrigatório)***
+    Especifica a(s) coluna(s) na tabela de junção que será(ão) associada(s) à entidade proprietária da relação (Product). 
+    Indica que a coluna id_product na tabela de junção será usada como chave estrangeira referenciando a tabela Product.
+
+    ***inverseJoinColumns (obrigatório)***
+    Especifica a(s) coluna(s) na tabela de junção que será(ão) associada(s) à outra entidade da relação (Category).
+    Indica que a coluna id_category na tabela de junção será usada como chave estrangeira referenciando a tabela Category.
+    */
     @ManyToMany
-    @JoinColumn(name = "id_cat")
+    @JoinTable(name = "tb_product_category", 
+    joinColumns = @JoinColumn(name = "id_product"),
+    inverseJoinColumns = @JoinColumn(name = "id_category")) 
     private Set<Category> categories = new HashSet<>();
 
 
