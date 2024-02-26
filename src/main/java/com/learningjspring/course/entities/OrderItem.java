@@ -2,6 +2,7 @@ package com.learningjspring.course.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learningjspring.course.entities.pk.OrderItemPk;
 
 import jakarta.persistence.EmbeddedId;
@@ -14,7 +15,7 @@ public class OrderItem implements Serializable {
     public static final long serialVersionUID = 1L;
 
     @EmbeddedId //Indica que a chave primária da entidade é uma chave composta e está representada por uma classe incorporável (no caso, OrderItemPk).
-    private OrderItemPk id;
+    private OrderItemPk id = new OrderItemPk(); //quando usa-se id composto, é necessário instanciá-la
     private Integer quantity;
     private double price;
 
@@ -44,6 +45,8 @@ public class OrderItem implements Serializable {
     public void setOrder(Order order) {
         id.setOrder(order);
     }
+
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
