@@ -35,6 +35,8 @@ public class TestConfig implements CommandLineRunner{
     @Autowired
     private ProductRepository productRepository;
 
+
+
     //instancia o banco de dados no início da aplicação
     @SuppressWarnings("null")
     @Override
