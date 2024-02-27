@@ -50,9 +50,11 @@ public class OrderItem implements Serializable {
     public Order getOrder() {
         return id.getOrder();
     }
+
     public void setProduct(Product prodcut) {
         id.setProduct(prodcut);
     }
+
     public Product getProduct() {
         return id.getProduct();
     }
