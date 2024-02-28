@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.learningjspring.course.entities.User;
 import com.learningjspring.course.repositories.UserRepository;
+import com.learningjspring.course.services.exceptions.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ public class UserService {
     public User findByid(Long id) {
         Optional<User> objUser = userRepository.findById(id);
 
-        return objUser.get();
+        //return objUser.get(); //retorna uma NoSuchElementException se o valor não for encontrado(exceção 500)
+        return objUser.orElseThrow(() -> new ResourceNotFoundException(id)); //vai tentar dar o get(), se não der certo, lançará a exceção desejada
     }
 
     public User insertUser(User user) {
