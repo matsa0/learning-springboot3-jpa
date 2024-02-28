@@ -33,4 +33,18 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public User updateUser(Long id, User user) {
+        User entity = userRepository.getReferenceById(id); //pega o objeto referenciado pelo id passado
+        updateData(entity, user);
+        return userRepository.save(entity);
+    }
+
+    //atualiza a entidade com o novo objeto
+    private void updateData(User entity, User user) {
+        entity.setName(user.getName());
+        entity.setEmail(user.getEmail());
+        entity.setPhone(user.getPhone());
+        //não atualizando password nem id
+    }
 }
