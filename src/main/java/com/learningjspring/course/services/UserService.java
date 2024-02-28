@@ -6,6 +6,8 @@ import com.learningjspring.course.entities.User;
 import com.learningjspring.course.repositories.UserRepository;
 import com.learningjspring.course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +35,22 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        } catch(RuntimeException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     public User updateUser(Long id, User user) {
-        User entity = userRepository.getReferenceById(id); //pega o objeto referenciado pelo id passado
-        updateData(entity, user);
-        return userRepository.save(entity);
+        try {
+            User entity = userRepository.getReferenceById(id); //pega o objeto referenciado pelo id passado
+            updateData(entity, user);
+            return userRepository.save(entity);
+        } 
+        catch(EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        } 
     }
 
     //atualiza a entidade com o novo objeto
